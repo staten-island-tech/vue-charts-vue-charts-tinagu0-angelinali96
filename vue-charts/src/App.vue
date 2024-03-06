@@ -11,11 +11,10 @@
 </template>
 
 <script>
-import ElseLmao from './views/ElseLmao.vue';
 
   export default {
     name: "App",
-    components: { ElseLmao }
+    components: { }
 }
 </script>
 
