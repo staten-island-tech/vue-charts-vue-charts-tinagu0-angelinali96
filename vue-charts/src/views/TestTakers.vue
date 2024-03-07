@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>Highest and Lowest Number of Test Takers</h1>
+    <h1>Highest and Lowest Number of Test Takers Per School</h1>
     <Bar id="my-chart-id" :data="chartData" v-if="loaded"/>
   </div>
 </template>
@@ -28,6 +28,9 @@ function sortByTestTaker(a, b) { // sort data in increasing order by number of t
 function returnExtrema(arr){ // get highest and lowest number for floating bar chart
   return [Number(arr[0].num_of_sat_test_takers), Number(arr[arr.length-1].num_of_sat_test_takers)];
 }
+function dataToUse(borough){ // reduce length of function in object bc clearly i cant organize anything
+  return returnExtrema(filterByBorough(borough).sort(sortByTestTaker))
+}
 
     export default {
         name: 'AverageScores',
@@ -38,19 +41,16 @@ function returnExtrema(arr){ // get highest and lowest number for floating bar c
         }),
   async mounted () {
     this.loaded = false
-
     try {
       const response = await fetch('https://data.cityofnewyork.us/resource/f9bf-2cp4.json');
       apiData = await response.json();
       boroughData = {
-        manhattan: returnExtrema(filterByBorough('M').sort(sortByTestTaker)),
-        bronx: returnExtrema(filterByBorough('X').sort(sortByTestTaker)),
-        brooklyn: returnExtrema(filterByBorough('K').sort(sortByTestTaker)),
-        queens: returnExtrema(filterByBorough('Q').sort(sortByTestTaker)),
-        statenisland: returnExtrema(filterByBorough('R').sort(sortByTestTaker)),
+        manhattan: dataToUse('M'),
+        bronx: dataToUse('X'),
+        brooklyn: dataToUse('K'),
+        queens: dataToUse('Q'),
+        statenisland: dataToUse('R'),
       }; 
-      // boroughData.manhattan = boroughData.manhattan.sort(sortByTestTaker);
-      // boroughData.manhattan = returnExtrema(boroughData.manhattan);
       this.chartdata = {
         labels: ['Manhattan', 'Bronx', 'Brooklyn', 'Queens', 'Staten Island'],
         datasets: [{data: [boroughData.manhattan,boroughData.bronx,boroughData.brooklyn,boroughData.queens,boroughData.statenisland],
@@ -64,12 +64,6 @@ function returnExtrema(arr){ // get highest and lowest number for floating bar c
   }
     };
 
-    /* chartData: {
-        labels: Object.keys(boroughs),
-        datasets: [ { data: [[40, 20],[30, 10],[10, 8],[20, 40],[40, 20]] , 
-            backgroundColor: '#FFF'} ],
-       
-      }, */
 </script>
 <style>
 @media (min-width: 1024px) {
