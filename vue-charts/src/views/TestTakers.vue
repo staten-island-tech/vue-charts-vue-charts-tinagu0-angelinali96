@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <h1>Highest and Lowest Number of Test Takers</h1>
-    <Bar id="my-chart-id" :options="chartOptions" :data="chartData" v-if="loaded"/>
+    <Bar id="my-chart-id" :data="chartData" v-if="loaded"/>
   </div>
 </template>
 <script>
@@ -16,16 +16,17 @@ async function getsgsdg(){
   dataaa.value = data;
 } */
 
-const boroughs = {
-  'Manhattan': 'M',
-  'Bronx': 'X',
-  'Brooklyn': 'K',
-  'Queens': 'Q',
-  'Staten Island': 'R'
-};
-const {apiData} = {};
-function filterByBorough(areacode){
-  return apiData[0].filter(item => item.dbn.includes(areacode) === true);
+let {apiData} = ref({});
+let boroughData = ref({});
+function filterByBorough(areacode){ // categorize data by borough
+  let filteredData = apiData.filter(item => item.dbn.includes(areacode) === true);
+  return filteredData.filter(item => item.num_of_sat_test_takers.includes('s') != true); // eliminate non number values
+}
+function sortByTestTaker(a, b) { // sort data in increasing order by number of test takers
+  return a.num_of_sat_test_takers - b.num_of_sat_test_takers;
+}
+function returnExtrema(arr){ // get highest and lowest number for floating bar chart
+  return [Number(arr[0].num_of_sat_test_takers), Number(arr[arr.length-1].num_of_sat_test_takers)];
 }
 
     export default {
@@ -41,20 +42,22 @@ function filterByBorough(areacode){
     try {
       const response = await fetch('https://data.cityofnewyork.us/resource/f9bf-2cp4.json');
       apiData = await response.json();
-      const dataByBorough = {
-        manhattan: filterByBorough('M'),
-        bronx: filterByBorough('X'),
-        brooklyn: filterByBorough('K'),
-        queens: filterByBorough('Q'),
-        statenisland: filterByBorough('R'),
+      boroughData = {
+        manhattan: returnExtrema(filterByBorough('M').sort(sortByTestTaker)),
+        bronx: returnExtrema(filterByBorough('X').sort(sortByTestTaker)),
+        brooklyn: returnExtrema(filterByBorough('K').sort(sortByTestTaker)),
+        queens: returnExtrema(filterByBorough('Q').sort(sortByTestTaker)),
+        statenisland: returnExtrema(filterByBorough('R').sort(sortByTestTaker)),
       }; 
+      // boroughData.manhattan = boroughData.manhattan.sort(sortByTestTaker);
+      // boroughData.manhattan = returnExtrema(boroughData.manhattan);
       this.chartdata = {
         labels: ['Manhattan', 'Bronx', 'Brooklyn', 'Queens', 'Staten Island'],
-        datasets: [{data: [[40, 20],[30, 10],[10, 8],[20, 40],[40, 20]],
+        datasets: [{data: [boroughData.manhattan,boroughData.bronx,boroughData.brooklyn,boroughData.queens,boroughData.statenisland],
       backgroundColor: '#FFF'}],
       };
-
       this.loaded = true;
+      console.log(boroughData);
     } catch (e) {
       console.error(e)
     }
