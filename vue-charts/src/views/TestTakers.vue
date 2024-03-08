@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <h1>Highest and Lowest Number of Test Takers Per School</h1>
-    <Bar id="my-chart-id" :data="chartData" v-if="loaded"/>
+    <Bar id="my-chart-id" :data="chartdata" v-if="loaded" aria-label="Highest and Lowest Number of Test Takers Per School in NYC Boroughs"/>
   </div>
 </template>
 <script>
@@ -37,7 +37,7 @@ function dataToUse(borough){ // reduce length of function in object bc clearly i
         components: {Bar}, 
         data: ()=>({
           loaded: false,
-          chartData: null
+          chartdata: null
         }),
   async mounted () {
     this.loaded = false
@@ -51,13 +51,13 @@ function dataToUse(borough){ // reduce length of function in object bc clearly i
         queens: dataToUse('Q'),
         statenisland: dataToUse('R'),
       }; 
-      this.chartdata = {
+      const chartdata = {
         labels: ['Manhattan', 'Bronx', 'Brooklyn', 'Queens', 'Staten Island'],
         datasets: [{data: [boroughData.manhattan,boroughData.bronx,boroughData.brooklyn,boroughData.queens,boroughData.statenisland],
-      backgroundColor: '#FFF'}],
+      backgroundColor: 'rgb(200,200,200)',label: 'Highest and Lowest Number of Test Takers'}],
       };
-      this.loaded = true;
-      console.log(boroughData);
+      this.chartdata = chartdata;
+      this.loaded = true;      
     } catch (e) {
       console.error(e)
     }
