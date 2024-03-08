@@ -1,4 +1,5 @@
 <template>
+    <DropMenu />
     <Bar
       id="my-chart-id"
       :options="chartOptions"
@@ -7,6 +8,7 @@
   </template>
 
 <script>
+import DropMenu from '../components/DropMenu.vue'
 import { apiData } from '@/stores/fetchapi';
 import { Bar } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
@@ -14,9 +16,16 @@ import { data } from './data'
 
 console.log(apiData)
 
+
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
     export default {
-        components: { Bar },
+        props: {
+            apiData: Array,
+        },
+        components: { 
+            Bar, 
+            DropMenu,
+        },
         setup(){
             return {
             chartData: {
