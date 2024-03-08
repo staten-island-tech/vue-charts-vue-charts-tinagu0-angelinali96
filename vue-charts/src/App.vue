@@ -18,6 +18,10 @@
 }
 </script>
 
+
 <style scoped>
+nav a:first-of-type {
+  border: 0;
+}
 
 </style>
