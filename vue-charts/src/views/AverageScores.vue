@@ -19,6 +19,9 @@ async function getData() {
     let res = await fetch("https://data.cityofnewyork.us/resource/f9bf-2cp4.json");
     let data = await res.json();
     scores.value = data;
+    // get list of schools and their array index for the dropdown
+    // get the scores for each category in the school with the parameter of index in array
+    // feed into graph
 }
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)

@@ -1,11 +1,20 @@
 <template>
     <div>
-        <p>hi</p>
+        <Dropdown/>
     </div>
 </template>
 
 <script setup>
-
+import Dropdown from 'primevue/dropdown';
+/*
+<Dropdown v-model="" // define a variable as the input selection from this dropdown
+ :aria-label="" // label for wave
+  editable checkmark // make dropdown searchable
+   placeholder="Select School"
+    :options="" // feed prop of list of schools; pull from api
+     optionLabel="" // whatever object key points to school name
+      optionValue=""/> // whatever object key points to the value of the school -> make it the index in the api
+*/
 </script>
 
 <style lang="scss" scoped>
