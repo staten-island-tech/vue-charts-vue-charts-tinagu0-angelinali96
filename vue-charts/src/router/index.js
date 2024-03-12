@@ -20,10 +20,12 @@ const router = createRouter({
     {
       path: '/avgscores',
       name: 'Average Scores',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AverageScores.vue')
+    },
+    {
+      path: '/takerdist',
+      name: 'Test Taker Distribution',
+      component: () => import('../views/TakerDistribution.vue')
     }
   ]
 })

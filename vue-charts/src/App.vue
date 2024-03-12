@@ -4,6 +4,7 @@
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/testtakers">Test Takers</RouterLink>
         <RouterLink to="/avgscores">Average Scores</RouterLink>
+        <RouterLink to="/takerdist">Distribution of Test Takers</RouterLink>
       </nav>
   </header>
 

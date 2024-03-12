@@ -1,14 +1,14 @@
 <template>
   <div class="about">
     <h1>Highest and Lowest Number of Test Takers Per School</h1>
-    <Bar id="my-chart-id" :data="chartdata" v-if="loaded" aria-label="Highest and Lowest Number of Test Takers Per School in NYC Boroughs"/>
+    <Chart type="line" id="barchart" :data="chartdata" v-if="loaded" aria-label="Highest and Lowest Number of Test Takers Per School in NYC Boroughs"/>
   </div>
 </template>
 <script>
 import {ref} from 'vue';
-import { Bar } from 'vue-chartjs';
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
+import { Chart } from 'vue-chartjs';
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement  } from 'chart.js';
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement);
 
 let {apiData} = ref({});
 let boroughMinMax = ref([]);
@@ -34,9 +34,10 @@ function avgNumPpl(borough){ // get average number of test takers by borough
   return total/(numbers.length);
 }
 
+
     export default {
         name: 'AverageScores',
-        components: {Bar}, 
+        components: {Chart}, 
         data: ()=>({
           loaded: false,
           chartdata: null,
@@ -68,21 +69,25 @@ function avgNumPpl(borough){ // get average number of test takers by borough
         avgNumPpl('Q'),
         avgNumPpl('R'),
     ];
+
       const chartdata = {
         labels: ['Manhattan', 'Bronx', 'Brooklyn', 'Queens', 'Staten Island'],
         datasets: [
           {
             data: boroughMinMax,
-            backgroundColor: 'rgb(200,200,200)',
+            backgroundColor: 'rgb(150,150,200)',
             label: 'Highest and Lowest Number of Test Takers',
-            type: 'bar'
+            type: 'bar',
+            order: 1
           },
           {
             data: boroughAvg,
-            backgroundColor: 'rgb(250,200,200)',
+            backgroundColor: 'rgb(250,150,150)',
+            borderColor: 'rgb(250,150,150)',
             label: 'Average Test Takers',
-            type: 'bar'
-          }
+            order: 0
+            // type: 'bar'
+          },
         ],
       };
       this.chartdata = chartdata;
