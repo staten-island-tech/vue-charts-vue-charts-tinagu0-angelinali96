@@ -43,7 +43,7 @@
             chartdata: null,
             chartOptions: {
               responsive: true,
-              scales:{
+              /* scales:{
                 xAxes: [{
     display: true,
     scaleLabel: {
@@ -58,7 +58,7 @@
       labelString: 'Number of Schools'
     }
   }]
-              }
+              } */
             }
           }),
     async mounted () {
@@ -80,27 +80,36 @@
               data: boroughDistribution[0],
               backgroundColor: 'rgb(200,200,200)',
               label: 'Manhattan',
-              showLine: true
+              showLine: true,
+              borderColor: 'rgb(200,200,200)',
             },
             {
               data: boroughDistribution[1],
               backgroundColor: 'rgb(150,200,200)',
               label: 'Bronx',
+              showLine: true,
+              borderColor: 'rgb(150,200,200)',
             },
             {
               data: boroughDistribution[2],
               backgroundColor: 'rgb(200,150,200)',
               label: 'Brooklyn',
+              showLine: true,
+              borderColor: 'rgb(200,150,200)',
             },
             {
               data: boroughDistribution[3],
               backgroundColor: 'rgb(200,200,150)',
               label: 'Queens',
+              showLine: true,
+              borderColor: 'rgb(200,200,150)',
             },
             {
               data: boroughDistribution[4],
               backgroundColor: 'rgb(150,200,150)',
               label: 'Staten Island',
+              showLine: true,
+              borderColor: 'rgb(150,200,150)',
             }
           ],
         };
