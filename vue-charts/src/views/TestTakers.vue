@@ -13,6 +13,7 @@ ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale,
 let {apiData} = ref({});
 let boroughMinMax = ref([]);
 let boroughAvg = ref([]);
+let boroughMedian = ref([]);
 function filterByBorough(areacode){ // categorize data by borough
   let filteredData = apiData.filter(item => item.dbn.includes(areacode) === true);
   return filteredData.filter(item => item.num_of_sat_test_takers.includes('s') != true); // eliminate non number values
@@ -32,6 +33,17 @@ function avgNumPpl(borough){ // get average number of test takers by borough
   let total = 0;
   numbers.forEach(item => total = total+Number(item.num_of_sat_test_takers));
   return total/(numbers.length);
+}
+
+function findMedian(borough) {
+  let numbers = filterByBorough(borough).sort(sortByTestTaker);
+    const middleIndex = Math.floor(numbers.length / 2);
+
+    if (numbers.length % 2 === 0) {
+        return (Number(numbers[middleIndex - 1].num_of_sat_test_takers) + Number(numbers[middleIndex].num_of_sat_test_takers)) / 2;
+    } else {
+        return Number(numbers[middleIndex].num_of_sat_test_takers);
+    }
 }
 
 
@@ -69,6 +81,13 @@ function avgNumPpl(borough){ // get average number of test takers by borough
         avgNumPpl('Q'),
         avgNumPpl('R'),
     ];
+    boroughMedian = [
+        findMedian('M'),
+        findMedian('X'),
+        findMedian('K'),
+        findMedian('Q'),
+        findMedian('R'),
+    ];
 
       const chartdata = {
         labels: ['Manhattan', 'Bronx', 'Brooklyn', 'Queens', 'Staten Island'],
@@ -86,8 +105,14 @@ function avgNumPpl(borough){ // get average number of test takers by borough
             borderColor: 'rgb(250,150,150)',
             label: 'Average Test Takers',
             order: 0
-            // type: 'bar'
           },
+          {
+            data: boroughMedian,
+            backgroundColor: 'rgb(50,150,250)',
+            borderColor: 'rgb(50,150,250)',
+            label: 'Median Test Takers',
+            order: 0
+          }
         ],
       };
       this.chartdata = chartdata;
