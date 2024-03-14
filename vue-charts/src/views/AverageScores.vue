@@ -14,7 +14,7 @@ import { Bar } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 import { a } from './data'
 
-const scores = ref("")
+const scores = ref('')
 async function getData() {
     let res = await fetch("https://data.cityofnewyork.us/resource/f9bf-2cp4.json");
     let data = await res.json();
@@ -35,11 +35,10 @@ ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
             DropMenu,
         },
         setup(){
-            onMounted(() => {
-            getData();
-            const data = scores.value
+            async () => {
+            await getData(); // Wait for getData() to get the data
             console.log(scores.value);
-            });
+            };
             return {
             chartData: {
                 labels: [ 'January', 'February', 'March', 'April', 'May' ],

@@ -1,15 +1,13 @@
 <template>
     <div>
-        <Dropdown v-model="a" :options="scores" placeholder="Select a School"  aria-label="School Selector" class="w-full md:w-14rem"/>
+        <Dropdown v-model="selectedSchool" :options="schoolNames" placeholder="Select a School"  aria-label="School Selector" class="w-full md:w-14rem"/>
     </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import Dropdown from 'primevue/dropdown';
 
-
-const a = ref()
 /*
 <Dropdown v-model="" // define a variable as the input selection from this dropdown
  :aria-label="" // label for wave
@@ -21,7 +19,6 @@ const a = ref()
 */
 
 
-
 export default {
     components: {
         Dropdown
@@ -31,8 +28,14 @@ export default {
         scores: Array,
     },
     setup() {
-
-    }
+        const selectedSchool = ref("");
+        const schoolNames = computed(() => scores.value.map(school => school.school_name));
+        return {
+           selectedSchool,
+           schoolNames
+        }
+            
+    },
 }
 </script>
 
