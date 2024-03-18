@@ -37,6 +37,9 @@
       Bar, 
       Dropdown,
     },
+    chartOptions: {
+            responsive: true
+          },
     setup() {
       // Fetch data when component is mounted
       onMounted(async () => {
@@ -44,28 +47,27 @@
         console.log(scores.value);
       });
       //info for the dropdown
+      //and all the variables
       const selectedSchool = ref('');
       const schoolNames = computed(() => scores.value.map(school => school.school_name));
+    
       const reading = ref(0);
       const writing = ref(0);
       const math = ref(0);
+      
+      const chartData = computed(() => ({
+      labels: ['Reading', 'Writing', 'Math'],
+      datasets: [{ data:[reading.value, writing.value, math.value], backgroundColor: 'rgb(255,230,234)' }]
+    }));
 
       watch(selectedSchool, async () => {
       const selectedScores = scores.value.find(school => school.school_name === selectedSchool.value);
         console.log(selectedScores)
         // Update individual scores
-        reading.value = selectedScores.sat_critical_reading_avg_score || 0;
-        writing.value = selectedScores.sat_writing_avg_score || 0;
-        math.value = selectedScores.sat_math_avg_score || 0;
-
-        // Update chart data
-        chartData.value.datasets[0].data = [reading.value, writing.value, math.value];
+        reading.value = selectedScores.sat_critical_reading_avg_score;
+        writing.value = selectedScores.sat_writing_avg_score;
+        math.value = selectedScores.sat_math_avg_score;
         console.log(reading.value, writing.value, math.value)
-    });
-
-    const chartData = ref({
-      labels: ['Reading', 'Writing', 'Math'],
-      datasets: [{ data: [0, 0, 0], backgroundColor: 'rgb(200,200,200)' }]
     });
     
       return {
