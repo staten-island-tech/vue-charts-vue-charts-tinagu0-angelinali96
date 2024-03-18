@@ -3,7 +3,6 @@
       <Dropdown v-model="selectedSchool" :options="schoolNames" placeholder="Select a School" aria-label="School Selector" class="w-full md:w-14rem" />
       <Bar
         id="my-chart-id"
-        :options="chartOptions"
         :data="chartData"
       />
     </div>
@@ -47,30 +46,32 @@
       //info for the dropdown
       const selectedSchool = ref('');
       const schoolNames = computed(() => scores.value.map(school => school.school_name));
+      const reading = ref(0);
+      const writing = ref(0);
+      const math = ref(0);
 
-    watch(selectedSchool, () => {
-    let values = scores.value.filter((school) => school.school_name == selectedSchool.value);
-    console.log(values);
-    })
-    let values = scores.value.filter((school) => school.school_name == selectedSchool.value);
-    let scores = [
-        {
-        reading: values.sat_critical_reading_avg_score,
-        writing: values.sat_writing_avg_score,
-        math: values.sat_math_avg_score,
-        },
-    ];
-  
+      watch(selectedSchool, async () => {
+      const selectedScores = scores.value.find(school => school.school_name === selectedSchool.value);
+        console.log(selectedScores)
+        // Update individual scores
+        reading.value = selectedScores.sat_critical_reading_avg_score || 0;
+        writing.value = selectedScores.sat_writing_avg_score || 0;
+        math.value = selectedScores.sat_math_avg_score || 0;
+
+        // Update chart data
+        chartData.value.datasets[0].data = [reading.value, writing.value, math.value];
+        console.log(reading.value, writing.value, math.value)
+    });
+
+    const chartData = ref({
+      labels: ['Reading', 'Writing', 'Math'],
+      datasets: [{ data: [0, 0, 0], backgroundColor: 'rgb(200,200,200)' }]
+    });
+    
       return {
         selectedSchool,
         schoolNames,
-        chartData: {
-          labels: ['Reading', 'Writing', 'Math'],
-          datasets: [{ data: scores, backgroundColor: 'rgb(200,200,200)' }]
-        },
-        chartOptions: {
-          responsive: true
-        },
+        chartData,
       }
     }
   };
