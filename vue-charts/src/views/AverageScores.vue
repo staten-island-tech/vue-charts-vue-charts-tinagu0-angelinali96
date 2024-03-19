@@ -1,6 +1,6 @@
 <template>
     <div>
-      <Dropdown v-model="selectedSchool" :options="schoolNames" placeholder="Select a School" aria-label="School Selector" class="w-full md:w-14rem" />
+      <Dropdown v-model="selectedSchool" :options="schoolNames" filter placeholder="Select a School" aria-label="School Selector" class="w-full md:w-14rem" /> 
       <Bar
         id="my-chart-id"
         :data="chartData"
@@ -44,7 +44,6 @@
       // Fetch data when component is mounted
       onMounted(async () => {
         await getData(); // Wait for getData() to get the data
-        console.log(scores.value);
       });
       //info for the dropdown
       //and all the variables
@@ -62,12 +61,10 @@
 
       watch(selectedSchool, async () => {
       const selectedScores = scores.value.find(school => school.school_name === selectedSchool.value);
-        console.log(selectedScores)
         // Update individual scores
         reading.value = selectedScores.sat_critical_reading_avg_score;
         writing.value = selectedScores.sat_writing_avg_score;
         math.value = selectedScores.sat_math_avg_score;
-        console.log(reading.value, writing.value, math.value)
     });
     
       return {
