@@ -5,6 +5,7 @@
         <RouterLink to="/testtakers">Test Takers</RouterLink>
         <RouterLink to="/avgscores">Average Scores</RouterLink>
         <RouterLink to="/takerdist">Distribution of Test Takers</RouterLink>
+        <RouterLink to="/totalscore">Total Score</RouterLink>
       </nav>
   </header>
 
