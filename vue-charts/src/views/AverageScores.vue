@@ -3,7 +3,6 @@
     <div>
       <Dropdown v-model="selectedSchool" :options="schoolNames" filter placeholder="Select a School" aria-label="School Selector" class="w-full md:w-14rem" /> 
       <Bar
-        id="my-chart-id"
         :data="chartData"        
       />
     </div>
