@@ -49,15 +49,16 @@ export default {
       let r = Number(selectedScores.sat_critical_reading_avg_score);
       let w = Number(selectedScores.sat_writing_avg_score);
       let m = Number(selectedScores.sat_math_avg_score);
-      let total = (r + w + m)
-      console.log(total)
+      let res = (r + w + m)
+      total.value = res
+      lost.value = 2200 - res
       
     });
 
 
     const chartData = computed(() => ({
     labels: ['Total Points', 'Lost Points'],
-    datasets: [{ data:[total, lost], backgroundColor: 'rgb(255,230,234)', label: 'Score for each Subject' }]
+    datasets: [{ data:[total.value, lost.value], backgroundColor: 'rgb(255,230,234)', label: 'Score for each Subject' }]
     }));
 
 
