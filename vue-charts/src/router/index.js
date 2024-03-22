@@ -26,6 +26,11 @@ const router = createRouter({
       path: '/takerdist',
       name: 'Test Taker Distribution',
       component: () => import('../views/TakerDistribution.vue')
+    },
+    {
+      path: '/totalscore',
+      name: 'Total Score',
+      component: () => import('../views/TotalScore.vue')
     }
   ]
 })
