@@ -58,7 +58,7 @@ export default {
 
     const chartData = computed(() => ({
     labels: ['Total Points', 'Lost Points'],
-    datasets: [{ data:[total.value, lost.value], backgroundColor: 'rgb(255,230,234)', label: 'Score for each Subject' }]
+    datasets: [{ data:[total.value, lost.value], backgroundColor: ['rgb(255,230,234)', 'rgb(200,200,200)'], label: 'Score for each Subject' }]
     }));
 
 

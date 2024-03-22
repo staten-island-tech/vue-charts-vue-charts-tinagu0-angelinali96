@@ -56,7 +56,7 @@
       
       const chartData = computed(() => ({
       labels: ['Reading', 'Writing', 'Math'],
-      datasets: [{ data:[reading.value, writing.value, math.value], backgroundColor: 'rgb(255,230,234)' }]
+      datasets: [{ data:[reading.value, writing.value, math.value], backgroundColor: ['rgb(255,230,234)', 'rgb(255,230,245)', 'rgb(255,230,250)' ], label: 'Individual Score'}]
     }));
 
       watch(selectedSchool, async () => {
