@@ -2,7 +2,6 @@
     <div class="about">
       <h1>Frequency Distribution of Test Takers</h1>
       <Scatter :data="chartdata" :options="chartOptions" v-if="loaded" aria-label="Distribution of Test Takers Per School in NYC Boroughs"/>
-        <p>erm the chart axes labels arent showing up so basically the x axis is the number of test takers and the y axis is the number of schools with that number of test takers</p>
     </div>
   </template>
   <script>

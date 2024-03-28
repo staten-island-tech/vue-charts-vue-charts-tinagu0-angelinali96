@@ -1,9 +1,9 @@
 <template>
+  <h1>SAT Data from 2012 in All 5 Boroughs of NYC</h1>
   <header>
       <nav>
-        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/">Average Scores</RouterLink>
         <RouterLink to="/testtakers">Test Takers</RouterLink>
-        <RouterLink to="/avgscores">Average Scores</RouterLink>
         <RouterLink to="/takerdist">Distribution of Test Takers</RouterLink>
         <RouterLink to="/totalscore">Total Score</RouterLink>
       </nav>
